@@ -15,6 +15,46 @@ export const metadata: Metadata = generatePageMetadata({
 
 const blogPosts = [
   {
+    title: 'Budget Catering Tips — How to Save Money Without Sacrificing Quality',
+    excerpt:
+      'Smart strategies to reduce catering costs while keeping guests happy. Menu planning, timing, negotiation, and avoiding common budget mistakes.',
+    slug: 'budget-catering-tips',
+    image: IMAGES.parties.corporate,
+    date: '2026-01-28',
+  },
+  {
+    title: 'Live Counter Ideas for Parties — Chaat, Tandoor, Pasta, Mocktails & More',
+    excerpt:
+      'Complete guide to live counters for parties and weddings. Popular options, pricing, best combinations, and setup tips.',
+    slug: 'live-counter-ideas-parties',
+    image: IMAGES.parties.mocktail,
+    date: '2026-01-25',
+  },
+  {
+    title: 'Jain Menu Ideas for Events — Weddings, Parties & Functions',
+    excerpt:
+      'Delicious Jain catering menus for every occasion. Sample menus, popular dishes, and tips for planning Jain-friendly events.',
+    slug: 'jain-menu-ideas-events',
+    image: IMAGES.services.bhandara,
+    date: '2026-01-22',
+  },
+  {
+    title: 'Complete Wedding Catering Checklist 2026 — Your Ultimate Planning Guide',
+    excerpt:
+      'Everything you need to plan perfect wedding catering, from choosing a caterer to execution day. Timeline, menu planning, and budget tips.',
+    slug: 'wedding-catering-checklist',
+    image: IMAGES.wedding.hero,
+    date: '2026-01-20',
+  },
+  {
+    title: 'How to Choose the Right Caterer in Noida — Complete Guide 2026',
+    excerpt:
+      '15 essential questions to ask, red flags to avoid, and a proven evaluation framework to find your perfect catering partner.',
+    slug: 'how-to-choose-caterer-noida',
+    image: IMAGES.parties.corporate,
+    date: '2026-01-18',
+  },
+  {
     title: 'Catering Cost Per Plate in Noida (2026) — Simple Pricing Breakdown',
     excerpt:
       'Understand what affects catering prices in Noida. Complete breakdown of per-plate costs for different event types.',
