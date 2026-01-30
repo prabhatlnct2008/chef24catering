@@ -1,8 +1,8 @@
 export const SITE_CONFIG = {
   name: 'Chef24Catering',
   url: 'https://chef24catering.in',
-  phone: '+91-9876543210',
-  whatsapp: '+919876543210',
+  phone: '+91-8800268653',
+  whatsapp: '918800268653',
   email: 'info@chef24catering.in',
   address: 'Noida, Uttar Pradesh, India',
 
