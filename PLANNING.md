@@ -1,0 +1,251 @@
+# Chef24Catering Technical Planning Document
+
+## Executive Summary
+
+This document outlines the technical architecture for rebuilding Chef24Catering as a high-converting, SEO-first lead generation engine targeting Noida sectors 63, 64, 65, 70, 125, and 127.
+
+---
+
+## Technology Stack
+
+### Core Framework
+- **Next.js 14+** (App Router) - Server-side rendering for SEO, React Server Components
+- **TypeScript** - Type safety and better DX
+- **React 18+** - Latest concurrent features
+
+### Styling & UI
+- **Tailwind CSS** - Utility-first styling with custom design tokens
+- **Shadcn/UI** - Accessible component primitives
+- **Framer Motion** - Lightweight animations for CRO elements
+- **Lucide React** - Icon library
+
+### SEO & Performance
+- **next-sitemap** - Automated sitemap.xml and robots.txt generation
+- **next/image** - Optimized image delivery with lazy loading
+- **next/font** - Optimized font loading (Playfair Display + Inter)
+
+### Analytics (Future)
+- **Google Analytics 4** (via next/script with lazyOnload strategy)
+- **Google Search Console** integration
+
+---
+
+## Design Token System (Tailwind Config)
+
+```javascript
+// tailwind.config.js theme extension
+{
+  colors: {
+    primary: '#0F2A43',      // Navy - trust/professional
+    accent: '#16A34A',       // WhatsApp green - CTA color
+    gold: '#C8A24A',         // Premium highlight
+    background: '#FFF8F1',   // Warm background
+    ink: '#0B1220',          // Primary text
+    muted: '#E7DCCB',        // Borders/dividers
+  },
+  fontFamily: {
+    heading: ['Playfair Display', 'serif'],
+    body: ['Inter', 'sans-serif'],
+  }
+}
+```
+
+---
+
+## Directory Structure
+
+```
+chef24catering/
+├── app/
+│   ├── layout.tsx                    # Root layout with global SEO, fonts, analytics
+│   ├── page.tsx                      # Homepage
+│   ├── pricing/
+│   │   └── page.tsx                  # Pricing page
+│   ├── menu/
+│   │   └── page.tsx                  # Menu page
+│   ├── gallery/
+│   │   └── page.tsx                  # Gallery page (added)
+│   ├── contact/
+│   │   └── page.tsx                  # Contact page (added for NAP)
+│   ├── services/
+│   │   ├── wedding-catering-noida/
+│   │   │   └── page.tsx
+│   │   ├── party-catering-noida/
+│   │   │   └── page.tsx
+│   │   ├── bhandara-catering-noida/
+│   │   │   └── page.tsx
+│   │   └── greh-pravesh-catering-noida/
+│   │       └── page.tsx
+│   ├── catering/
+│   │   ├── noida-sector-63/
+│   │   │   └── page.tsx
+│   │   ├── noida-sector-64/
+│   │   │   └── page.tsx
+│   │   ├── noida-sector-65/
+│   │   │   └── page.tsx
+│   │   ├── noida-sector-70/
+│   │   │   └── page.tsx
+│   │   ├── noida-sector-125/
+│   │   │   └── page.tsx
+│   │   └── noida-sector-127/
+│   │       └── page.tsx
+│   ├── blog/
+│   │   ├── page.tsx                  # Blog index (added)
+│   │   ├── catering-cost-per-plate-noida/
+│   │   │   └── page.tsx
+│   │   └── corporate-catering-noida-sector-63-65/
+│   │       └── page.tsx
+│   ├── not-found.tsx                 # Custom 404 page (added)
+│   └── sitemap.ts                    # Dynamic sitemap generation
+├── components/
+│   ├── layout/
+│   │   ├── Header.tsx                # Sticky header with CTAs
+│   │   ├── Footer.tsx                # Site-wide footer
+│   │   └── Breadcrumbs.tsx           # SEO breadcrumb navigation
+│   ├── seo/
+│   │   ├── JsonLd.tsx                # JSON-LD schema wrapper
+│   │   ├── LocalBusinessSchema.tsx   # LocalBusiness markup
+│   │   ├── ServiceSchema.tsx         # Service page markup
+│   │   └── FAQSchema.tsx             # FAQ structured data
+│   ├── ui/
+│   │   ├── Button.tsx                # CTA buttons (WhatsApp/Call)
+│   │   ├── Card.tsx                  # Service/package cards
+│   │   ├── QuoteWidget.tsx           # 3-field quick quote form
+│   │   ├── TrustStrip.tsx            # Rating + events count
+│   │   ├── ImageGallery.tsx          # Optimized image grid
+│   │   └── VideoEmbed.tsx            # Lazy-loaded video player
+│   ├── sections/
+│   │   ├── Hero.tsx                  # Reusable hero section
+│   │   ├── ServicesGrid.tsx          # 5-card service grid
+│   │   ├── PackageCards.tsx          # Pricing tier cards
+│   │   ├── MenuSection.tsx           # Menu category display
+│   │   ├── Testimonials.tsx          # Review carousel
+│   │   ├── SectorGrid.tsx            # Service area links
+│   │   └── FAQ.tsx                   # Accordion FAQ section
+│   └── shared/
+│       ├── WhatsAppLink.tsx          # Prefilled WhatsApp link generator
+│       └── CallLink.tsx              # Click-to-call component
+├── lib/
+│   ├── constants.ts                  # Site-wide constants (pricing, contact)
+│   ├── whatsapp.ts                   # WhatsApp message generator
+│   └── metadata.ts                   # SEO metadata helpers
+├── public/
+│   ├── images/                       # Optimized local images (if needed)
+│   └── robots.txt                    # Generated by next-sitemap
+├── styles/
+│   └── globals.css                   # Tailwind imports + custom styles
+├── next.config.js
+├── tailwind.config.js
+└── tsconfig.json
+```
+
+---
+
+## Component Hierarchy
+
+### Global Layout (app/layout.tsx)
+```
+<html>
+  <body>
+    <Header />                 # Sticky, 2 CTAs
+    <Breadcrumbs />            # Dynamic breadcrumb
+    <main>{children}</main>
+    <Footer />
+    <LocalBusinessSchema />    # Site-wide JSON-LD
+  </body>
+</html>
+```
+
+### Homepage Component Tree
+```
+<HomePage>
+  <Hero background="banner.jpg">
+    <TrustStrip />
+    <CTAButtons />
+  </Hero>
+  <QuoteWidget />
+  <ServicesGrid />
+  <WeddingShowcase />         # 4-tile grid
+  <PackageSnapshot />         # Pricing teaser
+  <MenuHighlights />          # Menu teaser
+  <About />
+  <VenueProof />              # 4-tile proof
+  <Testimonials />
+  <SectorGrid />              # SEO internal links
+  <FAQ />                     # With FAQSchema
+</HomePage>
+```
+
+---
+
+## Data Configuration
+
+All dynamic values should be centralized in `/lib/constants.ts`:
+
+```typescript
+export const SITE_CONFIG = {
+  name: 'Chef24Catering',
+  phone: '+91-XXXXXXXXXX',        // To be filled
+  whatsapp: '+91-XXXXXXXXXX',     // To be filled
+  email: 'info@chef24catering.in',
+  address: 'Noida, Uttar Pradesh, India',
+
+  pricing: {
+    starting: 250,                // Starting price per plate
+    essential: 250,               // p1
+    signature: 400,               // p2
+    royal: 600,                   // p3
+  },
+
+  stats: {
+    googleRating: 4.8,
+    eventsServed: 500,
+  },
+
+  social: {
+    instagram: '',
+    facebook: '',
+  }
+};
+```
+
+---
+
+## Performance Targets
+
+| Metric | Target | Strategy |
+|--------|--------|----------|
+| LCP | < 2.5s | Priority loading for hero image, preload fonts |
+| FID | < 100ms | Minimal client-side JS, RSC by default |
+| CLS | < 0.1 | Reserved image dimensions, font-display: swap |
+| Mobile Score | > 90 | Responsive images, lazy loading |
+| Accessibility | > 90 | Semantic HTML, ARIA labels, contrast ratios |
+
+---
+
+## SEO Architecture Notes
+
+1. **Server Components First**: All pages render as Server Components unless client interactivity required
+2. **Image Optimization**: All images via next/image with proper alt text
+3. **Font Optimization**: Google Fonts via next/font (subset, swap)
+4. **Script Loading**: Third-party scripts deferred with lazyOnload strategy
+5. **Canonical URLs**: Auto-generated for all pages
+6. **Trailing Slashes**: Enabled for consistency (/pricing/ not /pricing)
+
+---
+
+## Added Pages (Not in Original Spec)
+
+Based on SEO audit, these pages have been added:
+
+1. **/contact/** - Dedicated NAP page for local SEO signals
+2. **/gallery/** - Referenced in navigation but not specified
+3. **/blog/** - Index page for blog section
+4. **/not-found.tsx** - Custom 404 with helpful navigation
+5. **Breadcrumbs** - Site-wide breadcrumb navigation component
+
+---
+
+## Next Steps
+
+After approval, proceed to Stage 3: Parallel Implementation following PHASES.md roadmap.
